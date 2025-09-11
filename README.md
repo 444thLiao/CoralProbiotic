@@ -4,8 +4,6 @@
 
 This repository contains the scripts used to analyze data and create figures for the manuscript "Evolutionary Genomics Guides Scalable Coral Probiotics for Climate Resilience"
 
-Raw sequencing data are deposited in the NCBI Sequence Read Archive (SRA) under XXXXX.
-
 This repository contains scripts and pipelines for genomic data processing, assembly, annotation, pseudogene analysis, amplicon analysis, and large-scale comparative genomics using PopCOGenT.
 The codebase appears to be organized by workflow modules, each corresponding to a major step in the analysis.
 
@@ -110,7 +108,14 @@ This script identifies and analyzes marker genes distinguishable across microbia
 # Notes
 Within the scripts, if you find any import like `from bin.format_newick import renamed_tree`. Please referred to the other repo `https://github.com/444thLiao/evol_tk`.
 
+# Data availability
+Raw sequencing data are available on NCBI under several BioProjects with the private access link for reviewers. 
 
+The raw reads of 409 and assembled genomes of 419 Ruegeria isolates (10 genomes missing raw data) sequenced on the secondgeneration platform (DNBseq) and 34 Ruegeria isolates sequenced on the third-generation platform (Nanopore) are available under NCBI BioProject accessions [PRJNA1264799](https://dataview.ncbi.nlm.nih.gov/object/PRJNA1264799?reviewer=mp7rulknapinfb95c9733nf72r) and [PRJNA1275854](https://dataview.ncbi.nlm.nih.gov/object/PRJNA1275854?reviewer=g4mffnb8b965tq6b2662cpt6i8), respectively. 
+
+The parC and ATP5B amplicon sequencing data for natural coral samples are available under [PRJNA1275610](https://dataview.ncbi.nlm.nih.gov/object/PRJNA1275610?reviewer=nst2vifa08hqr8otcjvv39ge4l) and [PRJNA1275576](https://dataview.ncbi.nlm.nih.gov/object/PRJNA1275576?reviewer=g865emc830spbkko9b86qt). 
+
+The 16S rRNA and parC amplicon sequencing data for outplanted corals are 436 available under [PRJNA1275585](https://dataview.ncbi.nlm.nih.gov/object/PRJNA1275585?reviewer=9ne88342f7at8ndur1klq05mo8) and [PRJNA1275617](https://dataview.ncbi.nlm.nih.gov/object/PRJNA1275617?reviewer=e6g3aatk7pg8r6m6ao0riovjnu), respectively.
 
 # Publication
 
