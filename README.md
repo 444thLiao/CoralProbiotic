@@ -1,11 +1,120 @@
 
 
-# Main
+# Overview
 
+This repository contains the scripts used to analyze data and create figures for the manuscript "Evolutionary Genomics Guides Scalable Coral Probiotics for Climate Resilience"
+
+Raw sequencing data are deposited in the NCBI Sequence Read Archive (SRA) under XXXXX.
+
+This repository contains scripts and pipelines for genomic data processing, assembly, annotation, pseudogene analysis, amplicon analysis, and large-scale comparative genomics using PopCOGenT.
+The codebase appears to be organized by workflow modules, each corresponding to a major step in the analysis.
+
+
+# Directory and Script Descriptions
+
+## amplicon_analysis
+
+`genetree_method_bin.py`
+
+This script performs **gene tree-based population (MC) assignment** for amplicon sequence variants (ASVs) using reference genome markers and phylogenetic placement.
+
+**Main Functions:**
+
+- Uses **reference gene alignments** and phylogenetic trees (e.g., `parC`, `ATP5B`, `nirS2`) to guide ASV placement.
+- Runs **Papara** and **EPA-ng** to align ASVs to reference sequences and place them on the reference tree.
+- Generates **subset trees** with both reference genomes and ASVs using **IQ-TREE** or **FastTree**.
+- Identifies **monophyletic clades** of ASVs associated with a specific main cluster (MC) based on reference genome assignments.
+- Produces an `assigned_asv.txt` file mapping each ASV to its MC.
+
+## annotations
+    
+`complicated.py`
+This script integrates multiple genome annotation and analysis tasks into a single workflow.  
+Key functions include:
+- **Genomic island detection** via IslandViewer API (submit, monitor status, download results).
+- **Duplicated region detection** in genomes.
+- **MacSyFinder** runs for protein function modules (CasFinder, CONJScan, TFFscan, TXSScan).
+- **Phage detection** using `What_the_Phage` and prophage mapping via `Prophage_Tracer`.
+- Automatic calls to `single_anno.py` for running annotation modules (e.g., interproscan, COG, pseudofinder, antiSMASH, RGI, ISEScan, KOFAMSCAN).
+
+`single_anno.py`
+This is a **general-purpose genome annotation driver** supporting ~15 different bioinformatics tools.  
+Given genome files (`.faa`, `.gbk`, `.ffn`, `.fna`), it can:
+- Run functional annotation tools such as **KOFAMSCAN**, **InterProScan**, **antiSMASH**, **COG**, **CARD**, **VFDB**.
+- Identify mobile genetic elements (**ISEScan**, **digIS**), CRISPR-Cas systems, antimicrobial resistance genes (**ResFinder**, **RGI**, **BacARscan**), plasmids (**Plascad**), phages (**What_the_Phage**), alien DNA (**AlienHunter**), and pseudogenes (**pseudofinder**).
+- Manage command generation, execution, and logging, with optional SLURM job submission.
+It supports `--auto_imp` to auto-detect related genome files from the protein file path according to prokka outputing format.
+
+## Genomeassembly
+
+`run_canu.py`
+Automates **genome assembly** from Nanopore sequencing data using **Canu**, followed by polishing with **Pilon** using Illumina paired-end reads.  
+It handles:
+- Merging raw FASTQ files from sequencing runs.
+- Running Canu with genome size estimates.
+- Performing three rounds of Pilon polishing.
+- Renaming and formatting final FASTA output.
+
+`run_flye.py`
+Runs **Flye** assembler on selected Nanopore sequencing datasets.  
+Key features:
+- Selects target strains/genomes based on metadata.
+- Prepares and merges raw FASTQ files if needed.
+- Calculates genome size from reference FASTA.
+- Submits Flye jobs for assembly.
+
+`run_unicycler.py`
+Performs genome assembly using **Unicycler**, supporting both:
+- Long-read-only mode (Nanopore data).
+- Hybrid mode (Nanopore + Illumina paired-end data).
+Also includes a preprocessing step with **fastp** to clean Illumina reads before hybrid assembly.
+
+## largescale_popcogeneT
+
+`sA.autoBatchpopForNew.py`
+This script automates the process of running **PopCOGenT** for newly sequenced genomes.  
+It identifies new genomes not yet assigned to main clusters (MCs), groups them based on phylogenetic proximity, and runs PopCOGenT in batch mode (with Mugsy alignment) for each group.  
+The results are then used to assign or create MC IDs for these new genomes.
+
+`# sB.merge_popcogeneT.py`
+This script merges PopCOGenT clustering results from multiple groups into a unified main cluster (MC) table.  
+It cross-references previous MC assignments, updates MC IDs for new genomes, and writes an updated MC mapping file for downstream analyses.
+
+## pseudogenes/classify_bin.py
+
+`classify_bin.py` is a Python script designed to **classify and annotate pseudogenes** in bacterial genomes, with a focus on identifying their potential inactivation mechanisms.  It integrates pseudogene predictions, insertion sequence (IS) element data, and genome annotations to provide a detailed classification for each pseudogene.
+
+**Classification categories:**
+- **IS-mediated** – Inactivated by insertion sequence elements.
+- **Frameshift mutation** – Inactivated due to reading frame shifts.
+- **Nonsense mutation** – Inactivated due to premature stop codons.
+- **Partial remains** – Only part of the original gene remains.
+- **Close to sequence edge** – Located near contig ends.
+- **Unclassified** – Mechanism not determined.
+
+## pseudogenes/merged_pseudogenes_bin.py
+
+This script automates identification, merging, and annotation of pseudogenes in microbial genome datasets, especially for coral-associated bacteria. The core logic prevents fragmented annotation by merging pseudogene pieces that are close together physically and in homology, aiming for accurate gene loss characterization.
+
+The script supports batch processing of many genome files and annotation outputs for high-throughput comparative genomics studies.
+
+This tool is designed for robust pseudogene analysis, enabling researchers to track gene decay and genome evolution in microbial populations.
+
+Based on [Pseudofinder](https://github.com/filip-husnik/pseudofinder) but improvded 
+
+## search_MC_distinguishable_genes.py
+
+This script identifies and analyzes marker genes distinguishable across microbial populations(MCs). Identified ATP5B, parC. 
+
+
+# Notes
 Within the scripts, if you find any import like `from bin.format_newick import renamed_tree`. Please referred to the other repo `https://github.com/444thLiao/evol_tk`.
 
 
+
 # Publication
+
+Under review and submission.
 
 
 # Contact Us

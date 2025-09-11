@@ -328,8 +328,3 @@ for idx,genome in enumerate(targeted_genomes):
 fig.layout.yaxis.ticktext = list([f"{_} (MC{g2pop[_]})" if _ in g2pop else _ for _ in targeted_genomes])     
 fig.layout.yaxis.tickvals = list(range(len(targeted_genomes)))
 fig.write_html(f'/mnt/ivy/thliao/project/coral_ruegeria/data_processing_rpoB/CRF_figures/show_primer_kos/5target_kos.html')
-
-
-
-    # fig.write_html(f'./show_primer_kos/{genome}.html')
-    # fig.write_image(f'./show_primer_kos/{genome}.png')
