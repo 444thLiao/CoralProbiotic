@@ -8,6 +8,29 @@ This repository contains scripts and pipelines for genomic data processing, asse
 The codebase appears to be organized by workflow modules, each corresponding to a major step in the analysis.
 
 
+## Installation
+
+For some third-party scripts, please run the following code in your terminal to add `PYTHONPATH`
+
+`git clone https://github.com/444thLiao/evol_tk target_dir/`
+
+`export PYTHONPATH=$target_dir/evol_tk;$PYTHONPATH`
+
+For the other python library,
+
+`pip install pandas==1.3.5 biopython==1.79 tqdm==4.65.0 ete3==3.1.2 plotly==4.14.3 scipy==1.7.3`
+
+The installtion time should be less than one hour if network is fine.
+
+Installtion of `flye canu unicycler pseudofinder Wtp iqtree FastTreeMP` and all individual anntoation software, please refer to corresponding websites.
+
+
+## Metadata
+
+Metdata folder contains multiple files that used in the scripts and not sequencing or genomic data.
+
+
+
 # Directory and Script Descriptions
 
 ## amplicon_analysis

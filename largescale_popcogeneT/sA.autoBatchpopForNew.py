@@ -10,7 +10,7 @@ import re
 from glob import glob
 import os
 os.chdir('/mnt/ivy/thliao/project/coral_ruegeria/Merged_popcogeneT')
-df = pd.read_csv('./2307Ruegeria_MCs.tsv',sep='\t',index_col=0)
+df = pd.read_csv('./2305Ruegeria_MCs.tsv',sep='\t',index_col=0)
 odir = '/mnt/ivy/thliao/project/coral_ruegeria/Merged_popcogeneT/updated_popcogenT20241022_b'
 tre = Tree('/mnt/ivy/thliao/project/coral_ruegeria/Merged_popcogeneT/phylogeny/bac120/bac120_MVrooted_2305Ruegeria.newick')
 final_mcdf = f'/mnt/ivy/thliao/project/coral_ruegeria/Merged_popcogeneT/2305Ruegeria_MCs.tsv'

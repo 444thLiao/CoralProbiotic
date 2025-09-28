@@ -82,18 +82,6 @@ with open('/mnt/ivy/thliao/project/coral_ruegeria/nanopore_processing/annotation
                 status = 'FAILED'
         f1.write(f"{gid}\t{jobid}\t{status}\n")
 
-### duplicated region
-from .calculate_duplication import get_G2dup_regions
-for ml,mi in [(1000,99),(500,99),
-              (2000,99),(3000,99),
-              (500,98),(500,95),(500,90),(1000,98),(1000,95),(1000,90)]:
-    genome2dup_ratio,genome2duplication_regions,sub_dupdf = get_G2dup_regions(ml,mi)
-    sub_dupdf.to_csv(f'/mnt/ivy/thliao/project/coral_ruegeria/nanopore_processing/annotations/manual_duplication/dup_{ml}.{mi}.tsv',sep='\t',index=0)
-    with open(f'/mnt/ivy/thliao/project/coral_ruegeria/nanopore_processing/annotations/manual_duplication/dup_{ml}.{mi}.list','w') as f1:
-        for contig,region_list in genome2duplication_regions.items():
-            for r in region_list:
-                f1.write(f"{contig}\t{r[0]}\t{r[1]}\n")
-
 
 ###
 gid2nano_fna = {
